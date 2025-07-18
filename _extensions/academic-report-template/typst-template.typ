@@ -27,7 +27,7 @@
   fontsize: 11pt,
   title-size: 1.5em,
   subtitle-size: 1.25em,
-  heading-family: "libertinus serif",
+  heading-family: "New Computer Modern",
   heading-weight: "bold",
   heading-style: "normal",
   heading-color: black,
@@ -121,6 +121,7 @@
   } else {
     columns(cols, doc)
   }
+
 }
 
 #set table(

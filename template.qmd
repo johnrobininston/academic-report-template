@@ -1,18 +1,84 @@
 ---
-title: Untitled
+title: Report Title
+subtitle: Project Name
+author:
+  - name: John Smith
+    affiliation: University of Earth
+    email: johnsmith@earth.edu
+  - name: Jane Smith
+    affiliation: University of the Moon
+    email: janesmith@moon.edu
+toc: false
+number-sections: true
+number-depth: 3
+section-numbering: 1.1.a
+mainfont: "New Computer Modern"
+abstract:
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit ametlacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu semlaoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet,auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia.Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus nonfringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, atluctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nasceturridiculus mus.
 format:
   academic-report-template-typst: default
+execute: 
+  echo: true
+  fig-align: center
+  fig-width: 9
+  fig-height: 4
+# bibliography: bibliography.bib
 ---
 
-## Introduction
+# Introduction
 
-*TODO* Create an example file that demonstrates the formatting and features of your format.
+This is my quarto / typst for academic reports.  It is only a slight modification from the default report template with some minor cosmetic tweaks.  This report is orientated towards *scientific writing* in **applied mathematics**.  
 
-## More Information
+# Features
 
-You can learn more about creating custom Typst templates here: 
+## Mathematics
 
-<https://quarto.org/docs/prerelease/1.4/typst.html#custom-formats>
+This template makes use of the standard *LaTeX* support for writing both inline mathematics - e.g. $f(x)=\log(x)$ - as well as block mathematics,
+
+$$
+\mathbb{E}X=\int_\Omega Xd\mathbb{P},
+$${#eq-1}
+
+where we also highlight equation referencing by calling attention to @eq-1.
+
+## Code Blocks
+
+This template also makes use of the standard support for various programming languages.  Inline `code text` can be written easily.  For code chunks we can write:
+```{python}
+# Libraries
+import matplotlib.pyplot as plt
+import numpy as np
+# Define vairables
+a = np.linspace(0,100,1000)
+b = 4*a-12
+# Call output
+print(b[589])
+```
+
+### Plotting
+
+We can also produce plots:
+```{python}
+#| fig-align: center
+#| fig-cap: "A simple line plot."
+#| label: fig-1
+
+# Produce a plot
+plt.plot(a,b)
+```
+
+We can also reference these plots, for example see @fig-1.
+
+# Upcoming
+
+I am in the process of adding the following:
+
+1. Custom formatting tweaks including:
+   1. Better figure spacing (80% page width, font matching body)
+   2. Better whitespace
+2. Definition, Theorem and Proof environments
+3. Bibliography formatting.
+
 
 
 
