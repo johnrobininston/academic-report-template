@@ -39,6 +39,9 @@ $endif$
 $if(region)$
   region: "$region$",
 $endif$
+$if(keywords)$
+  keywords: [$for(keywords)$$keywords$$sep$, $endfor$],
+$endif$
 $if(abstract)$
   abstract: [$abstract$],
   abstract-title: "$labels.abstract$",

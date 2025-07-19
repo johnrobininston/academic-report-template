@@ -16,6 +16,8 @@
   subtitle: none,
   authors: none,
   date: none,
+  thanks: none,
+  keywords: none,
   abstract: none,
   abstract-title: none,
   cols: 1,
@@ -23,15 +25,16 @@
   paper: "us-letter",
   lang: "en",
   region: "US",
-  font: "libertinus serif",
-  fontsize: 11pt,
+  font: "libertinus serif", // latex font "libertinus serif"
+  fontsize: 10pt,
   title-size: 1.5em,
   subtitle-size: 1.25em,
-  heading-family: "New Computer Modern",
-  heading-weight: "bold",
+  heading-family: "libertinus serif",
+  heading-weight: "semibold",
   heading-style: "normal",
   heading-color: black,
   heading-line-height: 0.65em,
+  heading-size: 0.95em,
   sectionnumbering: none,
   pagenumbering: "1",
   toc: false,
@@ -40,37 +43,81 @@
   toc_indent: 1.5em,
   doc,
 ) = {
+
   set page(
     paper: paper,
     margin: margin,
     numbering: pagenumbering,
   )
+
   set par(justify: true)
+
   set text(lang: lang,
            region: region,
            font: font,
            size: fontsize)
+
+  //set heading(numbering: sectionnumbering)
+  //if title != none {
+  //  align(center)[#block(inset: 2em)[
+  //    #set par(leading: heading-line-height)
+  //    #if (heading-family != none or heading-weight != "bold" or heading-style != "normal"
+  //         or heading-color != black or heading-decoration == "underline"
+  //         or heading-background-color != none) {
+  //      set text(font: heading-family, weight: heading-weight, style: heading-style, fill: heading-color)
+  //      text(size: title-size)[#title]
+  //      if subtitle != none {
+  //        parbreak()
+  //        text(size: subtitle-size)[#subtitle]
+  //     }
+  //    } else {
+  //      text(weight: "bold", size: title-size)[#title]
+  //      if subtitle != none {
+  //        parbreak()
+  //        text(weight: "bold", size: subtitle-size)[#subtitle]
+  //      }
+  //    }
+  //  ]]
+  //}
+
   set heading(numbering: sectionnumbering)
+  show heading: it => {
+    // Set heading numbering
+    let number = if it.numbering != none {
+      counter(heading).display(it.numbering)
+      h(1em, weak: true)
+    }
+    // Level 1 headings
+    set text(size: heading-size, weight: heading-weight, fill: heading-color)
+    if it.level == 1 {
+      set text(size: heading-size, weight: heading-weight, fill: heading-color)
+      smallcaps[  
+        #v(20pt, weak: true)
+        #number
+        #it.body
+        #v(15pt, weak: true)
+      ]
+    } else {
+      v(11pt, weak: true)
+      number
+      let styled = if it.level == 2 { strong } else { emph }
+      styled(it.body + [. ])
+      h(1em, weak: true)
+    }
+  }
+  
   if title != none {
     align(center)[#block(inset: 2em)[
-      #set par(leading: heading-line-height)
-      #if (heading-family != none or heading-weight != "bold" or heading-style != "normal"
-           or heading-color != black or heading-decoration == "underline"
-           or heading-background-color != none) {
-        set text(font: heading-family, weight: heading-weight, style: heading-style, fill: heading-color)
-        text(size: title-size)[#title]
-        if subtitle != none {
-          parbreak()
-          text(size: subtitle-size)[#subtitle]
-        }
-      } else {
-        text(weight: "bold", size: title-size)[#title]
-        if subtitle != none {
-          parbreak()
-          text(weight: "bold", size: subtitle-size)[#subtitle]
-        }
-      }
-    ]]
+        #text(weight: "semibold", size: title-size)[
+          #title
+          #if thanks != none {
+            footnote(numbering: "*", thanks)
+          }\
+          #if subtitle != none {
+            text(weight: "regular", style: "italic", size: 0.8em)[#subtitle]
+          }
+        ]
+      ]]
   }
 
   if authors != none {
@@ -97,7 +144,12 @@
 
   if abstract != none {
     block(inset: 2em)[
-    #text(weight: "semibold")[#abstract-title] #h(1em) #abstract
+      #text(weight: "semibold")[#abstract-title] #h(1em) #abstract \
+      #v(0.5em, weak: true) \
+      #if keywords != none {
+        text(weight: "semibold")[Keywords #h(1em)] 
+        text(weight: "regular", style: "italic")[#keywords]
+      }
     ]
   }
 

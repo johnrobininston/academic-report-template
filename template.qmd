@@ -1,18 +1,20 @@
 ---
 title: Report Title
-subtitle: Project Name
+subtitle: Project name
 author:
   - name: John Smith
     affiliation: University of Earth
     email: johnsmith@earth.edu
-  - name: Jane Smith
+  - name: James Robertson
     affiliation: University of the Moon
-    email: janesmith@moon.edu
+    email: jamesrobertson@moon.edu
 toc: false
+heading-size: 1em,
 number-sections: true
 number-depth: 3
 section-numbering: 1.1.a
-mainfont: "New Computer Modern"
+keywords: Quarto, Typst, Academic Report.
+font: "libertinus serif"
 abstract:
   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis sagittis posuere ligula sit ametlacinia. Duis dignissim pellentesque magna, rhoncus congue sapien finibus mollis. Ut eu semlaoreet, vehicula ipsum in, convallis erat. Vestibulum magna sem, blandit pulvinar augue sit amet,auctor malesuada sapien. Nullam faucibus leo eget eros hendrerit, non laoreet ipsum lacinia.Curabitur cursus diam elit, non tempus ante volutpat a. Quisque hendrerit blandit purus nonfringilla. Integer sit amet elit viverra ante dapibus semper. Vestibulum viverra rutrum enim, atluctus enim posuere eu. Orci varius natoque penatibus et magnis dis parturient montes, nasceturridiculus mus.
 format:
@@ -22,62 +24,91 @@ execute:
   fig-align: center
   fig-width: 9
   fig-height: 4
-# bibliography: bibliography.bib
 ---
 
-# Introduction
+```{python}
+#| echo: false
+# Packages
+import numpy as np
+import matplotlib.pyplot as plt
+```
 
-This is my quarto / typst for academic reports.  It is only a slight modification from the default report template with some minor cosmetic tweaks.  This report is orientated towards *scientific writing* in **applied mathematics**.  
+# Information
 
-# Features
+This is the latest version of my academic report quarto / typst template.  It is heavily based on the standard template with some minor cosmetic changes.  Aligning with my personal needs, this report style is geared towards applied mathematics and data science and thus emphasizes mathematics, referencing, clear figures and code legibility.  
+
+# Formatting
+
+Taking inspiration from the AMS Typst template, level one headings are bold, capitalized and on their own line.  All other heading levels are in line and it is generally recommended not to delve above level 2 unless absolutely necessary.
+
+The documents standard font is *libertinus serif*.  If a more traditional LaTeX style is preferred you can set the **font** property to *modern computer serif*.
+
+## Lists
+
+Ordered lists follow directly from standard Markdown syntax:
+
+1. Item 1
+   a. Item 1.1
+   b. Item 1.2
+
+2. Item 2
+   - Item 2.1
+
+Similarly for unordered lists:
+
+- Item 1
+  - Item 1.1
+  - Item 1.2
+  - Item 1.3
+- Item 2
+  1. Item 2.1
+  2. Item 2.2
 
 ## Mathematics
 
-This template makes use of the standard *LaTeX* support for writing both inline mathematics - e.g. $f(x)=\log(x)$ - as well as block mathematics,
+We can write inline mathematics `f(x)=7x^2-12` or math blocks.  For example, for random variable $X$ defined on support $\mathcal{X}$ the **expectation** of $f(X)$ is given by
 
 $$
-\mathbb{E}X=\int_\Omega Xd\mathbb{P},
+\begin{aligned}
+\mathbb{E}[f(X)] & = \int_{\omega\in\Omega} f(X(\omega)) d\mathbb{P}(\omega) \\
+  & = \int_X f(x)\cdot g(x) dx,
+\end{aligned}
 $${#eq-1}
 
-where we also highlight equation referencing by calling attention to @eq-1.
+where $g(x)$ is the *probability density function*.
 
-## Code Blocks
+We can reference equations by including tags in the equation chunk, for example see @eq-1.
 
-This template also makes use of the standard support for various programming languages.  Inline `code text` can be written easily.  For code chunks we can write:
+## Code 
+
+Included just under the YAML is a hidden code chunk where I prefer to import packages.  Inline code can be written `a = [1,2,3,4]` as well as code chunks:
 ```{python}
-# Libraries
-import matplotlib.pyplot as plt
-import numpy as np
-# Define vairables
-a = np.linspace(0,100,1000)
-b = 4*a-12
-# Call output
-print(b[589])
+a = np.linspace(0,10,100)
+b = a**2
+print(b[35])
 ```
 
-### Plotting
+Included in the YAML are some universal code chunk options where we specify my preferred default plot dimensions:
 
-We can also produce plots:
 ```{python}
-#| fig-align: center
-#| fig-cap: "A simple line plot."
+#| fig-cap: 'An example figure.'
 #| label: fig-1
-
-# Produce a plot
 plt.plot(a,b)
+plt.xlabel('Independent Variable (a)')
+plt.ylabel('Dependent Variable (b)')
+plt.title('Example Plot')
+plt.show()
 ```
 
-We can also reference these plots, for example see @fig-1.
+We can also reference generated figures, for example see @fig-1.
 
-# Upcoming
 
-I am in the process of adding the following:
 
-1. Custom formatting tweaks including:
-   1. Better figure spacing (80% page width, font matching body)
-   2. Better whitespace
-2. Definition, Theorem and Proof environments
-3. Bibliography formatting.
+
+
+
+
+
 
 
 
